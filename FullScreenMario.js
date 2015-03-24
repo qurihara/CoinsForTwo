@@ -4434,10 +4434,10 @@ var FullScreenMario = (function(GameStartr) {
             alert("You've got no coin. Try again!");
             return;
         }
-        var ncoin = nc * 200;
-        var fname = "Mario";
-        var lname = "Grandcart";
-        var mail = "mario@xxx.com";
+        var ncoin = nc * document.getElementById("rate").value;// 200;
+        var fname = document.getElementById("fname").value;// "Mario";
+        var lname = document.getElementById("lname").value;//"Grandcart";
+        var mail = document.getElementById("mail").value;//"mario@xxx.com";
         var url = "https://payments.wikimedia.org/index.php?title=Special:GlobalCollectGateway&appeal=JimmyQuote&ffname=email-cc-vmaj&recurring=&payment_method=cc&utm_source=fr-redir.default~default~default~default~control.cc&utm_medium=spontaneous&utm_campaign=spontaneous&utm_key=&referrer=&language=ja&country=JP&returnto=Thank_You%2Fja&amountGiven=" + ncoin + "&currency_code=JPY&frequency=onetime&amount=Other&uselang=ja&emailAdd=" + mail + "&lname=" + lname + "&fname=" + fname;
         alert("You are entitled to donate " + ncoin + " JPY!");                
         document.location = url;
