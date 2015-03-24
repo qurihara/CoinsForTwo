@@ -72,30 +72,39 @@ var FullScreenMario = (function(GameStartr) {
      * 
      * FSM.gameStart();
      */
-    function FullScreenMario(customs) {        // Call the parent GameStartr constructor to set the base settings and        // verify the prototype requirements
+    function FullScreenMario(customs) {
+        // Call the parent GameStartr constructor to set the base settings and
+        // verify the prototype requirements
         GameStartr.call(this, {
             "customs": customs,
-            "constructor": FullScreenMario,            "requirements": {                "settings": {
+            "constructor": FullScreenMario,
+            "requirements": {
+                "settings": {
                     "audio": "settings/audio.js",
-                    "collisions": "settings/collisions.js",                    "editor": "settings/editor.js",
+                    "collisions": "settings/collisions.js",
+                    "editor": "settings/editor.js",
                     "events": "settings/events.js",
                     "generator": "settings/generator.js",
                     "input": "settings/input.js",
                     "maps": "settings/maps.js",
                     "mods": "settings/mods.js",
-                    "objects": "settings/objects.js",                    "quadrants": "settings/quadrants.js",
+                    "objects": "settings/objects.js",
+                    "quadrants": "settings/quadrants.js",
                     "renderer": "settings/renderer.js",
                     "runner": "settings/runner.js",
                     "screen": "settings/screen.js",
                     "sprites": "settings/sprites.js",
-                    "statistics": "settings/statistics.js"                }            },
+                    "statistics": "settings/statistics.js"
+                }
+            },
             "constants": [
                 "unitsize",
                 "scale",
                 "point_levels",
                 "gravity",
                 "customTextMappings"
-            ]        });
+            ]
+        });
         
         if (customs.resetTimed) {
             this.resetTimes = this.resetTimed(this, customs);
@@ -124,7 +133,11 @@ var FullScreenMario = (function(GameStartr) {
         " ": "Space",
         ".": "Period",
         "!": "ExclamationMark"
-    };            /* Resets    */
+    };
+    
+    
+    /* Resets
+    */
     
     /**
      * 
@@ -163,7 +176,7 @@ var FullScreenMario = (function(GameStartr) {
     function gameStart() {
         var EightBitter = EightBittr.ensureCorrectCaller(this);
         
-        EightBitter.StatsHolder.set("lives", 3);
+        EightBitter.StatsHolder.set("lives", 1);//3);
         EightBitter.setMap("1-1");
         
         EightBitter.ModAttacher.fireEvent("onGameStart");
@@ -763,7 +776,14 @@ var FullScreenMario = (function(GameStartr) {
         // If character is resting on solid, this is automatically true
         if (thing.resting === other) {
             return true;
-        }                // If the character is jumping upwards, it's not on a solid        // (removing this check would cause Mario to have "sticky" behavior when        // jumping at the corners of solids)        if (thing.yvel < 0) {            return false;        }
+        }
+        
+        // If the character is jumping upwards, it's not on a solid
+        // (removing this check would cause Mario to have "sticky" behavior when
+        // jumping at the corners of solids)
+        if (thing.yvel < 0) {
+            return false;
+        }
         
         // The character and solid must be touching appropriately
         if (!thing.EightBitter.isThingOnSolid(thing, other)) {
@@ -826,9 +846,13 @@ var FullScreenMario = (function(GameStartr) {
      * @param {Thing} thing
      * @param {Thing} other
      */
-    function isCharacterTouchingSolid(thing, other) {        // Hidden solids can only be touched by the player bottom-bumping them,
+    function isCharacterTouchingSolid(thing, other) {
+        // Hidden solids can only be touched by the player bottom-bumping them,
         // or by specifying collide_hidden
-        if (other.hidden && !other.collide_hidden) {            if (!thing.player || !thing.EightBitter.isSolidOnCharacter(other, thing)) {                return false;            }
+        if (other.hidden && !other.collide_hidden) {
+            if (!thing.player || !thing.EightBitter.isSolidOnCharacter(other, thing)) {
+                return false;
+            }
         }
         
         if (thing.nocollidesolid) {
@@ -858,7 +882,8 @@ var FullScreenMario = (function(GameStartr) {
      * @remarks Similar to isThingOnThing, but more specifically used for
      *          characterTouchedSolid
      * @remarks This sets the character's .midx property
-     */    function isSolidOnCharacter(thing, other) {
+     */
+    function isSolidOnCharacter(thing, other) {
         // This can never be true if other is falling
         if (other.yvel >= 0) {
             return false;
@@ -2853,9 +2878,44 @@ var FullScreenMario = (function(GameStartr) {
                 player.movement = FullScreenMario.prototype.movePlayer;
             }
         }
-    }        /**     *      */    function moveFalling(thing) {        // If the player isn't resting on this thing (any more?), ignore it        if (thing.EightBitter.player.resting !== thing) {            // Since the player might have been on this thing but isn't anymore,             // set the yvel to 0 just in case            thing.yvel = 0;            return;        }                // Since the player is on this thing, start falling more        thing.EightBitter.shiftVert(thing, thing.yvel += thing.EightBitter.unitsize / 8);        thing.EightBitter.setBottom(thing.EightBitter.player, thing.top);                // After a velocity threshold, start always falling        if (thing.yvel >= (thing.fall_threshold_start || thing.EightBitter.unitsize * 2.8)) {            thing.freefall = true;            thing.movement = thing.EightBitter.moveFreeFalling;        }    }        /**     *      */    function moveFreeFalling(thing) {        // Accelerate downwards, increasing the thing's y-velocity        thing.yvel += thing.acceleration || thing.EightBitter.unitsize / 16;        thing.EightBitter.shiftVert(thing, thing.yvel);
-                // After a velocity threshold, stop accelerating        if (thing.yvel >= (thing.fall_threshold_end || thing.EightBitter.unitsize * 2)) {
-            thing.movement = movePlatform;        }    }
+    }
+    
+    /**
+     * 
+     */
+    function moveFalling(thing) {
+        // If the player isn't resting on this thing (any more?), ignore it
+        if (thing.EightBitter.player.resting !== thing) {
+            // Since the player might have been on this thing but isn't anymore, 
+            // set the yvel to 0 just in case
+            thing.yvel = 0;
+            return;
+        }
+        
+        // Since the player is on this thing, start falling more
+        thing.EightBitter.shiftVert(thing, thing.yvel += thing.EightBitter.unitsize / 8);
+        thing.EightBitter.setBottom(thing.EightBitter.player, thing.top);
+        
+        // After a velocity threshold, start always falling
+        if (thing.yvel >= (thing.fall_threshold_start || thing.EightBitter.unitsize * 2.8)) {
+            thing.freefall = true;
+            thing.movement = thing.EightBitter.moveFreeFalling;
+        }
+    }
+    
+    /**
+     * 
+     */
+    function moveFreeFalling(thing) {
+        // Accelerate downwards, increasing the thing's y-velocity
+        thing.yvel += thing.acceleration || thing.EightBitter.unitsize / 16;
+        thing.EightBitter.shiftVert(thing, thing.yvel);
+        
+        // After a velocity threshold, stop accelerating
+        if (thing.yvel >= (thing.fall_threshold_end || thing.EightBitter.unitsize * 2)) {
+            thing.movement = movePlatform;
+        }
+    }
     
     /**
      * 
@@ -4353,18 +4413,35 @@ var FullScreenMario = (function(GameStartr) {
         thing.EightBitter.AudioPlayer.pauseAll();
         thing.EightBitter.AudioPlayer.play("Player Dies");
         thing.EightBitter.StatsHolder.decrease("lives");
-        
         if (thing.EightBitter.StatsHolder.get("lives") > 0) {
             thing.EightBitter.TimeHandler.addEvent(function () {
                 thing.EightBitter.setMap();
+
             }, 280);
         } else {
             thing.EightBitter.TimeHandler.addEvent(function () {
+                //
+                donate(thing);
+                //
                 thing.EightBitter.gameOver();
             }, 280);
         }
     }
-    
+
+    function donate(thing){
+        var nc = thing.EightBitter.StatsHolder.get("coins");
+        if (nc == 0){
+            alert("You've got no coin. Try again!");
+            return;
+        }
+        var ncoin = nc * 200;
+        var fname = "Mario";
+        var lname = "Grandcart";
+        var mail = "mario@xxx.com";
+        var url = "https://payments.wikimedia.org/index.php?title=Special:GlobalCollectGateway&appeal=JimmyQuote&ffname=email-cc-vmaj&recurring=&payment_method=cc&utm_source=fr-redir.default~default~default~default~control.cc&utm_medium=spontaneous&utm_campaign=spontaneous&utm_key=&referrer=&language=ja&country=JP&returnto=Thank_You%2Fja&amountGiven=" + ncoin + "&currency_code=JPY&frequency=onetime&amount=Other&uselang=ja&emailAdd=" + mail + "&lname=" + lname + "&fname=" + fname;
+        alert("You are entitled to donate " + ncoin + " JPY!");                
+        document.location = url;
+    }    
     
     /* Scoring
     */
@@ -5935,7 +6012,9 @@ var FullScreenMario = (function(GameStartr) {
         "movePlatformSpawn": movePlatformSpawn,
         "movePlatformScale": movePlatformScale,
         "moveVine": moveVine,
-        "moveSpringboardUp": moveSpringboardUp,        "moveFalling": moveFalling,        "moveFreeFalling": moveFreeFalling,
+        "moveSpringboardUp": moveSpringboardUp,
+        "moveFalling": moveFalling,
+        "moveFreeFalling": moveFreeFalling,
         "moveShell": moveShell,
         "movePiranha": movePiranha,
         "moveBubble": moveBubble,

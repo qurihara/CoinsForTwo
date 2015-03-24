@@ -2,27 +2,45 @@
 <html lang="en-us">
     <head>
         <meta charset="utf-8" />
-        <title>Full Screen Mario</title>
+        <title>Coins for Two</title>
         <link href="default.css" rel="stylesheet" />
         <link href="src/LevelEditr/LevelEditr.css" rel="stylesheet" />
         <link href="Fonts/stylesheet.css" rel="stylesheet" />
         <link rel="shortcut icon" href="Theme/Mario.gif">
     </head>
     
-    <body>
+    <body id="main">
         <header>
-            <img src="Theme/HeaderWeb.gif" alt="Full Screen Mario" />
-            <div id="header-right">
-                <a class="hoverable" target="_blank" href="https://twitter.com/FullScreenMario">
-                    <img id="twitter" src="Theme/Twitter.png" alt="Twitter" />
-                </a>
-                <a class="hoverable" target="_blank" href="https://github.com/Diogenesthecynic/FullScreenMario-JSON">
-                    <img id="github" src="Theme/Github.png" alt="Github" />
-                </a>
-                <a class="hoverable" target="_blank" href="https://facebook.com/FullScreenMario">
-                    <img id="facebook" src="Theme/Facebook.png" alt="Facebook" />
-                </a>
-            </div>
+            <H1>Coins for Two</H1>
+            <h3>You can raise money for charity through playing Super Mario Bros. Get more coins to raise more money!</h3>
+            <form>
+                <table>
+                <tr>
+                    <td>
+                        A coin counts for <input type="text" name="rate" size="8" value="200"> JPY                       
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Your name: <input type="text" name="fname" size="8" value="Mario"><input type="text" name="lname" size="8" value="Grandcart">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Your email: <input type="text" name="mail" size="20" value="mario@xxx.com">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Donation for: 
+                        <select name="donationfor">
+                            <option value="wikipedia" selected=true>Wikipedia</option>
+                            <option value="amazon">Amazon</option>
+                        </select>
+                    </td>
+                </tr>
+                </table>
+            </form>
         </header>
         
         <section id="game">
@@ -32,28 +50,7 @@
         <section id="controls">
             <!-- JavaScript from ui.js should fill out this section -->
         </section>
-        
-        <section id="explanation" class="section-text">
-            Full Screen Mario is a free HTML5 remake of the original Super Mario Bros.
-            It includes the original 32 levels, a random map generator, a <!-- social --> level editor, and over a dozen custom mods.
-        </section>
-        
-        <section id="social" class="section-text">
-            You may <a class="link-github" href="http://www.github.com/DiogenesTheCynic/FullScreenMario-JSON">download the game for yourself</a> from GitHub, the location of Full Screen Mario's open source project.
-            Be sure to get the latest news on our <a class="link-facebook" href="http://www.facebook.com/FullScreenMario">Facebook</a> and <a class="link-twitter" href="http://www.twitter.com/FullScreenMario">Twitter</a> too!
-        </section>
-        
-        <section id="credits" class="section-text">
-            Full Screen Mario was made possible first and foremost by Nintendo, who originally created Mario and has since maintained the series. 
-            It would also not have been possible without the dedicated efforts of the Mario fan community over the past three decades, in particular <a href="http://www.themushroomkingdom.net/">themushroomkingdom.net</a>.
-        </section>
-        
-        <section id="hangar96" class="section-text">
-            <a href="http://marathon.sourceforge.net" alt="Escape will make me god.">
-                <img class="hoverable" src="Theme/Inspired by Aleph One.png" />
-            </a>
-        </section>
-        
+                               
         <section id="legal" class="section-text">
             <small><em>Mario, Super Mario Brothers, and all associated games and media are property of Nintendo and/or Nintendo of America Inc., and are protected by United States and international copyright, trademark and other intellectual property laws.</em></small>
         </section>
@@ -101,5 +98,11 @@
         <script src="settings/statistics.js"></script>
         
         <script src="default.js"></script>
+
+        <script>
+            var anigif_base_url = "https://s3-us-west-2.amazonaws.com/anigif100/anigif/"
+        </script>
+        <script src="https://s3-us-west-2.amazonaws.com/anigif100/anigif/anigif.min.js"></script>
+
     </body>
 </html>
