@@ -7,9 +7,9 @@ http://qurihara.github.io/CoinsForTwo/
 
 TODOs:
 
-(1)Rich video recording functionalities for sharing your play with your friends.
+(1)More automated video recording functionalities for sharing your play with your friends.
 
-(2)Other donation options other than Wikipedia.
+(2)More donation options (currently Wikipedia is only available).
 
 (3)More preset maps.
 
