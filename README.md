@@ -11,7 +11,7 @@ TODOs:
 
 (2)Other donation options other than Wikipedia.
 
-(3)More preset fields.
+(3)More preset maps.
 
 
 The following information is inherited from the FullScreenMario:
