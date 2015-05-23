@@ -1,8 +1,8 @@
 Coins for Two 
 ===============
-*You can raise money for charity through playing Super Mario Bros. Get more coins to raise more money!
+You can raise money for charity through playing Super Mario Bros. Get more coins to raise more money!
 
-*Play right now!
+Play right now!
 http://qurihara.github.io/CoinsForTwo/
 
 TODOs:
@@ -15,7 +15,7 @@ TODOs:
 
 
 The following information is inherited from the FullScreenMario:
-===============
+
 FullScreenMario
 ===============
 
